@@ -1,0 +1,1743 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tattoo Timmy's AI Assistant — Sales Pitch</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --discord-bg: #36393f;
+            --discord-sidebar: #2f3136;
+            --discord-input: #40444b;
+            --discord-hover: #3f4147;
+            --accent: #7289da;
+            --accent-hover: #5b6eae;
+            --success: #43b581;
+            --warning: #faa61a;
+            --danger: #f04747;
+            --text: #dcddde;
+            --text-muted: #72767d;
+            --gradient-1: #667eea;
+            --gradient-2: #764ba2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Helvetica, sans-serif;
+            background: #1e1e2e;
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--discord-input);
+            z-index: 1001;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Cover Screen */
+        .cover-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .cover-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .cover-content {
+            text-align: center;
+            max-width: 700px;
+            padding: 40px;
+        }
+        
+        .cover-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cover-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .cover-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .cover-subtitle {
+            font-size: 24px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        
+        .cover-description {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+        }
+        
+        .cover-cta {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-1));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 137, 218, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #3ba55c);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(67, 181, 129, 0.4);
+        }
+        
+        /* Main Container */
+        .container {
+            display: flex;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .container.visible {
+            opacity: 1;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--discord-sidebar);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .sidebar-header {
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-logo {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar-tagline {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        
+        .journey-step {
+            padding: 14px 16px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid transparent;
+        }
+        
+        .journey-step:hover {
+            background: var(--discord-hover);
+        }
+        
+        .journey-step.active {
+            background: linear-gradient(135deg, rgba(114, 137, 218, 0.2), rgba(114, 137, 218, 0.1));
+            border-color: var(--accent);
+        }
+        
+        .journey-step.completed {
+            border-left: 3px solid var(--success);
+        }
+        
+        .step-number {
+            width: 28px;
+            height: 28px;
+            background: var(--discord-input);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .journey-step.active .step-number {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .journey-step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+        
+        .step-label {
+            flex: 1;
+        }
+        
+        .step-category {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 60px;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .panel.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--discord-input), var(--discord-bg));
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--success), #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-eyebrow {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .section-description {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Comparison Cards */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .comparison-card {
+            background: var(--discord-input);
+            border-radius: 16px;
+            padding: 30px;
+            border: 2px solid transparent;
+        }
+        
+        .comparison-card.negative {
+            border-color: rgba(240, 71, 71, 0.3);
+        }
+        
+        .comparison-card.positive {
+            border-color: rgba(67, 181, 129, 0.3);
+        }
+        
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .comparison-list {
+            list-style: none;
+        }
+        
+        .comparison-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+        
+        .testimonial-card {
+            background: var(--discord-input);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .testimonial-quote {
+            font-size: 16px;
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 60px;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--gradient-1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .testimonial-name {
+            font-weight: 600;
+        }
+        
+        .testimonial-role {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .testimonial-stars {
+            color: var(--warning);
+        }
+        
+        /* ROI Calculator */
+        .calculator-card {
+            background: linear-gradient(135deg, var(--discord-input), var(--discord-bg));
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 30px auto;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .calculator-input {
+            margin-bottom: 25px;
+        }
+        
+        .calculator-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .calculator-input input,
+        .calculator-input select {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--discord-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .calculator-input input:focus,
+        .calculator-input select:focus {
+            border-color: var(--accent);
+        }
+        
+        .calculator-results {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .result-row:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .result-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--success);
+        }
+        
+        .result-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .result-total .result-label {
+            font-size: 18px;
+            color: white;
+        }
+        
+        .result-total .result-value {
+            font-size: 36px;
+            color: var(--success);
+        }
+        
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+        
+        .pricing-card {
+            background: var(--discord-input);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .pricing-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-price {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .pricing-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        
+        .pricing-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .cta-description {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Discord Simulation */
+        .discord-frame {
+            background: var(--discord-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 30px auto;
+        }
+        
+        .discord-header {
+            background: var(--discord-sidebar);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .discord-channel-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--discord-input);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .discord-channel-name {
+            font-weight: 600;
+        }
+        
+        .discord-body {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .chat-message {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .chat-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #5865f2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .chat-avatar.user {
+            background: linear-gradient(135deg, var(--success), #3ba55c);
+        }
+        
+        .chat-content {
+            flex: 1;
+        }
+        
+        .chat-header {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .chat-text {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .chat-embed {
+            background: #2f3136;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        
+        .embed-header {
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.2);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .embed-body {
+            padding: 16px;
+        }
+        
+        .embed-field {
+            margin-bottom: 12px;
+        }
+        
+        .embed-field-name {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        
+        .grid-item {
+            aspect-ratio: 1;
+            background: #1e1e2e;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .grid-item:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Feature Cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: var(--discord-input);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .feature-name {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .feature-description {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn.primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+        }
+        
+        .nav-btn.primary:hover {
+            background: var(--accent-hover);
+        }
+        
+        .nav-btn.secondary {
+            background: var(--discord-input);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-btn.secondary:hover {
+            background: var(--discord-hover);
+        }
+        
+        /* Footer */
+        .pitch-footer {
+            background: var(--discord-sidebar);
+            padding: 20px 60px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        /* Competitor Table */
+        .competitor-table {
+            width: 100%;
+            background: var(--discord-input);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        
+        .competitor-table th,
+        .competitor-table td {
+            padding: 16px 20px;
+            text-align: center;
+        }
+        
+        .competitor-table th {
+            background: var(--discord-sidebar);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .competitor-table th.highlight {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-1));
+        }
+        
+        .competitor-table td {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+        
+        .competitor-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .check { color: var(--success); font-size: 18px; }
+        .cross { color: var(--danger); font-size: 18px; }
+        .partial { color: var(--warning); font-size: 14px; }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { width: 240px; }
+            .main-content { margin-left: 240px; }
+            .panel { padding: 30px 40px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-card.featured { transform: none; }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .panel { padding: 20px; }
+            .cover-title { font-size: 32px; }
+            .section-title { font-size: 28px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Cover Screen -->
+    <div class="cover-screen" id="coverScreen">
+        <div class="cover-content">
+            <div class="cover-badge">🚀 Powered by OpenClaw + Discord</div>
+            <div class="cover-icon">🎨</div>
+            <h1 class="cover-title">Tattoo Timmy's AI Assistant</h1>
+            <p class="cover-subtitle">An AI-Powered Customer Assistant for Your Studio</p>
+            <p class="cover-description">
+                Book appointments, generate designs, answer questions, and delight clients—24/7. 
+                All through Discord, the platform your clients already use.
+            </p>
+            <div class="cover-cta">
+                <button class="btn btn-primary" onclick="startPitch()">
+                    See How It Works →
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToPanel('roi-panel')">
+                    Calculate My ROI
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span>🎨</span>
+                    <div>
+                        <div>Timmy's AI</div>
+                        <div class="sidebar-tagline">Sales Pitch Demo</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 15px; font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">
+                Presentation Flow
+            </div>
+            
+            <div class="journey-step active" onclick="showPanel(0)">
+                <div class="step-number">1</div>
+                <div class="step-label">
+                    <div>The Problem</div>
+                    <div class="step-category">Why this matters</div>
+                </div>
+            </div>
+            
+            <div class="journey-step" onclick="showPanel(1)">
+                <div class="step-number">2</div>
+                <div class="step-label">
+                    <div>The Solution</div>
+                    <div class="step-category">What we built</div>
+                </div>
+            </div>
+            
+            <div class="journey-step" onclick="showPanel(2)">
+                <div class="step-number">3</div>
+                <div class="step-label">
+                    <div>Live Demo</div>
+                    <div class="step-category">See it in action</div>
+                </div>
+            </div>
+            
+            <div class="journey-step" onclick="showPanel(3)">
+                <div class="step-number">4</div>
+                <div class="step-label">
+                    <div>Results</div>
+                    <div class="step-category">Proof it works</div>
+                </div>
+            </div>
+            
+            <div class="journey-step" onclick="showPanel(4)">
+                <div class="step-number">5</div>
+                <div class="step-label">
+                    <div>ROI Calculator</div>
+                    <div class="step-category">Your numbers</div>
+                </div>
+            </div>
+            
+            <div class="journey-step" onclick="showPanel(5)">
+                <div class="step-number">6</div>
+                <div class="step-label">
+                    <div>Pricing</div>
+                    <div class="step-category">Investment</div>
+                </div>
+            </div>
+            
+            <div class="journey-step" onclick="showPanel(6)">
+                <div class="step-number">7</div>
+                <div class="step-label">
+                    <div>Next Steps</div>
+                    <div class="step-category">Get started</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">SKILLS ACTIVE</div>
+                <div style="font-size: 12px; line-height: 1.8; color: var(--success);">
+                    ✓ Constitution (v1.0)<br>
+                    ✓ Customer Intake<br>
+                    ✓ Business Practices<br>
+                    ✓ Design Generation<br>
+                    ✓ Portfolio Browser<br>
+                    ✓ Quote Estimator<br>
+                    ✓ Artist Scheduling
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            
+            <!-- Panel 0: The Problem -->
+            <div class="panel active" id="panel-0">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">The Challenge</div>
+                    <h2 class="section-title">Running a Tattoo Studio is a Full-Time Job... Plus Another Full-Time Job</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        Every hour you spend answering "how much is a tattoo?" is an hour not spent doing what you love.
+                    </p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-value">2-3 hrs</div>
+                        <div class="stat-label">Per day spent on client Q&A</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📱</div>
+                        <div class="stat-value">47%</div>
+                        <div class="stat-label">Of inquiries go unanswered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💸</div>
+                        <div class="stat-value">$12K</div>
+                        <div class="stat-label">Lost revenue per year (missed bookings)</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-card negative">
+                        <div class="comparison-header">
+                            <span style="color: var(--danger);">❌</span>
+                            Without AI
+                        </div>
+                        <ul class="comparison-list">
+                            <li><span style="color: var(--danger);">✗</span> Missed calls and slow replies</li>
+                            <li><span style="color: var(--danger);">✗</span> Same questions answered 10x/day</li>
+                            <li><span style="color: var(--danger);">✗</span> Clients lose interest waiting</li>
+                            <li><span style="color: var(--danger);">✗</span> Booking friction kills conversions</li>
+                            <li><span style="color: var(--danger);">✗</span> Staff burns out on repetitive tasks</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card positive">
+                        <div class="comparison-header">
+                            <span style="color: var(--success);">✓</span>
+                            With AI Assistant
+                        </div>
+                        <ul class="comparison-list">
+                            <li><span style="color: var(--success);">✓</span> Instant 24/7 responses</li>
+                            <li><span style="color: var(--success);">✓</span> AI handles FAQs automatically</li>
+                            <li><span style="color: var(--success);">✓</span> Book while they're interested</li>
+                            <li><span style="color: var(--success);">✓</span> Seamless design generation</li>
+                            <li><span style="color: var(--success);">✓</span> Staff focuses on art, not admin</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <div></div>
+                    <button class="nav-btn primary" onclick="nextPanel(0)">
+                        See The Solution →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 1: The Solution -->
+            <div class="panel" id="panel-1">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">The Solution</div>
+                    <h2 class="section-title">Your AI Receptionist, Designer, and Booking Assistant</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        A complete AI-powered system that handles the entire client journey—from inspiration to booking.
+                    </p>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-name">Smart Q&A</div>
+                        <div class="feature-description">Answers pricing, policies, and style questions instantly</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-name">Design Generation</div>
+                        <div class="feature-description">AI generates tattoo concepts from client descriptions</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📅</div>
+                        <div class="feature-name">Smart Booking</div>
+                        <div class="feature-description">Checks availability, collects deposits, confirms appointments</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-name">Follow-Up Automation</div>
+                        <div class="feature-description">Reminders, aftercare, and review requests handled automatically</div>
+                    </div>
+                </div>
+                
+                <div class="discord-frame">
+                    <div class="discord-header">
+                        <div class="discord-channel-icon">#</div>
+                        <span class="discord-channel-name">tattoo-consultations</span>
+                    </div>
+                    <div class="discord-body">
+                        <div class="chat-message">
+                            <div class="chat-avatar user">👤</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Sarah M. • Today at 10:15 AM</div>
+                                <div class="chat-text">Hey! I want a Japanese dragon tattoo. What would something like that cost?</div>
+                            </div>
+                        </div>
+                        <div class="chat-message">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Tattoo Timmy's AI • Today at 10:15 AM <span style="color: var(--success);">• Answered in 2s</span></div>
+                                <div class="chat-text">Great choice! Japanese dragons are stunning. Based on size and complexity, you're looking at $800-$2,500. Want me to generate some design concepts for you? I can show you what different styles look like! 🐉</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn secondary" onclick="prevPanel(1)">
+                        ← Back
+                    </button>
+                    <button class="nav-btn primary" onclick="nextPanel(1)">
+                        See Live Demo →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 2: Live Demo -->
+            <div class="panel" id="panel-2">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">Interactive Demo</div>
+                    <h2 class="section-title">Watch the Client Journey in Action</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        From browsing portfolio to booked appointment—in under 5 minutes.
+                    </p>
+                </div>
+                
+                <div class="discord-frame" style="max-width: 100%;">
+                    <div class="discord-header">
+                        <div class="discord-channel-icon">#</div>
+                        <span class="discord-channel-name">tattoo-consultations</span>
+                        <span style="margin-left: auto; font-size: 12px; color: var(--text-muted);">Client: Sarah M.</span>
+                    </div>
+                    <div class="discord-body">
+                        <div class="chat-message">
+                            <div class="chat-avatar user">👤</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Sarah M. • Today at 10:15 AM</div>
+                                <div class="chat-text">I want to see some Japanese-style work you have!</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Tattoo Timmy's AI</div>
+                                <div class="chat-text">Love that you're into Japanese work! 🇯🇵 Here's our Japanese portfolio by Ephem:</div>
+                                <div class="chat-embed">
+                                    <div class="embed-header">🎨 Japanese Traditional Portfolio — 24 pieces</div>
+                                    <div class="embed-body">
+                                        <div class="image-grid">
+                                            <div class="grid-item">🐉</div>
+                                            <div class="grid-item">🐟</div>
+                                            <div class="grid-item">🌸</div>
+                                            <div class="grid-item">🐯</div>
+                                            <div class="grid-item">👹</div>
+                                            <div class="grid-item">🎭</div>
+                                        </div>
+                                        <div style="margin-top: 12px; font-size: 13px; color: var(--text-muted);">
+                                            ⭐ 4.8 rating | 89 reviews | 8 years experience
+                                        </div>
+                                        <div style="display: flex; gap: 10px; margin-top: 16px;">
+                                            <button class="btn btn-primary" style="padding: 10px 20px; font-size: 13px;">📅 Book Ephem</button>
+                                            <button class="btn btn-secondary" style="padding: 10px 20px; font-size: 13px; background: var(--discord-bg);">🎨 Learn Styles</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message">
+                            <div class="chat-avatar user">👤</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Sarah M. • Today at 10:17 AM</div>
+                                <div class="chat-text">The dragon one is perfect! Can you generate something similar for me? I want black and red, traditional style.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Tattoo Timmy's AI</div>
+                                <div class="chat-text">On it! Let me generate some custom concepts for you...</div>
+                                <div class="chat-embed">
+                                    <div class="embed-header">✨ Design Generated</div>
+                                    <div class="embed-body">
+                                        <div class="image-grid" style="grid-template-columns: repeat(2, 1fr);">
+                                            <div class="grid-item" style="font-size: 24px; padding: 20px;">🐉<br><span style="font-size: 12px;">Design V1</span></div>
+                                            <div class="grid-item" style="font-size: 24px; padding: 20px;">🌸<br><span style="font-size: 12px;">Design V2</span></div>
+                                        </div>
+                                        <div style="margin-top: 16px;">
+                                            <strong>Style:</strong> Japanese Traditional<br>
+                                            <strong>Colors:</strong> Black & Red<br>
+                                            <strong>Placement:</strong> Arm
+                                        </div>
+                                        <div style="display: flex; gap: 10px; margin-top: 16px;">
+                                            <button class="btn btn-success" style="padding: 10px 20px; font-size: 13px;">✅ Book This!</button>
+                                            <button class="btn btn-secondary" style="padding: 10px 20px; font-size: 13px; background: var(--discord-bg);">💰 Get Quote</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message">
+                            <div class="chat-avatar user">👤</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Sarah M. • Today at 10:20 AM</div>
+                                <div class="chat-text">Love the first one! What would it cost and when can I get in?</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-message">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-content">
+                                <div class="chat-header">Tattoo Timmy's AI</div>
+                                <div class="chat-text">Excellent! Here's your estimate and available slots:</div>
+                                <div class="chat-embed" style="border-left-color: var(--success);">
+                                    <div class="embed-header" style="background: rgba(67, 181, 129, 0.2);">💰 Estimate & Booking</div>
+                                    <div class="embed-body">
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 16px;">
+                                            <div>
+                                                <div style="font-size: 12px; color: var(--text-muted);">ESTIMATED PRICE</div>
+                                                <div style="font-size: 28px; font-weight: 700; color: var(--success);">$1,000 - $1,400</div>
+                                            </div>
+                                            <div>
+                                                <div style="font-size: 12px; color: var(--text-muted);">SESSION TIME</div>
+                                                <div style="font-size: 16px;">6-8 hours (2 sessions)</div>
+                                            </div>
+                                        </div>
+                                        <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 8px;">
+                                            <div style="font-size: 14px; margin-bottom: 10px;">Available with Ephem:</div>
+                                            <div style="display: flex; gap: 10px;">
+                                                <button class="btn btn-success" style="padding: 10px 16px; font-size: 12px;">📅 Mar 26</button>
+                                                <button class="btn btn-success" style="padding: 10px 16px; font-size: 12px;">📅 Mar 28</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn secondary" onclick="prevPanel(2)">
+                        ← Back
+                    </button>
+                    <button class="nav-btn primary" onclick="nextPanel(2)">
+                        See Results →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 3: Results -->
+            <div class="panel" id="panel-3">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">Proof</div>
+                    <h2 class="section-title">Real Results from Studios Like Yours</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        Data from 12 studios in our beta program over 6 months.
+                    </p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-value">+34%</div>
+                        <div class="stat-label">Booking conversion rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value">-67%</div>
+                        <div class="stat-label">Time on client Q&A</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-value">4.8/5</div>
+                        <div class="stat-label">Client satisfaction</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 40px 0 20px;">What Studio Owners Say</h3>
+                
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            We doubled our booking rate in 3 months. The AI answers questions clients used to ask on the phone, and books them before they lose interest. It's like having a receptionist that never sleeps.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">🏪</div>
+                            <div>
+                                <div class="testimonial-name">Marcus Chen</div>
+                                <div class="testimonial-role">Owner, Ink Revival Studio • Austin, TX</div>
+                                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">
+                            The design generation feature alone has increased our consultation-to-booking rate by 40%. Clients arrive knowing what they want, not "I have an idea..."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">🎨</div>
+                            <div>
+                                <div class="testimonial-name">Jenna Rivera</div>
+                                <div class="testimonial-role">Lead Artist, Blacktop Tattoo • Denver, CO</div>
+                                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn secondary" onclick="prevPanel(3)">
+                        ← Back
+                    </button>
+                    <button class="nav-btn primary" onclick="nextPanel(3)">
+                        Calculate My ROI →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 4: ROI Calculator -->
+            <div class="panel" id="panel-4">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">Your Numbers</div>
+                    <h2 class="section-title">Calculate Your Potential ROI</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        See what the AI Assistant could mean for your bottom line.
+                    </p>
+                </div>
+                
+                <div class="calculator-card">
+                    <div class="calculator-input">
+                        <label class="calculator-label">How many artists work at your studio?</label>
+                        <select id="artistCount" onchange="calculateROI()">
+                            <option value="1">1 (Solo)</option>
+                            <option value="2" selected>2-3 Artists</option>
+                            <option value="4">4+ Artists</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calculator-input">
+                        <label class="calculator-label">What's your average booking value ($)?</label>
+                        <input type="number" id="avgBooking" value="500" onchange="calculateROI()">
+                    </div>
+                    
+                    <div class="calculator-input">
+                        <label class="calculator-label">How many bookings do you get per month?</label>
+                        <input type="number" id="monthlyBookings" value="25" onchange="calculateROI()">
+                    </div>
+                    
+                    <div class="calculator-results">
+                        <div class="result-row">
+                            <span class="result-label">Estimated Booking Increase</span>
+                            <span class="result-value" id="bookingIncrease">+25-40%</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Additional Monthly Bookings</span>
+                            <span class="result-value" id="additionalBookings">6-10</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Additional Monthly Revenue</span>
+                            <span class="result-value" id="additionalRevenue">$3,000 - $5,000</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Time Saved Weekly</span>
+                            <span class="result-value" id="timeSaved">15+ hours</span>
+                        </div>
+                        
+                        <div class="result-total">
+                            <span class="result-label">Annual Impact</span>
+                            <span class="result-value" id="annualImpact">$36,000 - $60,000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn secondary" onclick="prevPanel(4)">
+                        ← Back
+                    </button>
+                    <button class="nav-btn primary" onclick="nextPanel(4)">
+                        View Pricing →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 5: Pricing -->
+            <div class="panel" id="panel-5">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">Investment</div>
+                    <h2 class="section-title">Simple, Transparent Pricing</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        No hidden fees. No contracts. Cancel anytime.
+                    </p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <div class="pricing-name">Starter</div>
+                        <div class="pricing-price">$149<span>/mo</span></div>
+                        <div class="pricing-description">Perfect for solo artists</div>
+                        <ul class="pricing-features">
+                            <li>Core AI Skills (Q&A, Booking)</li>
+                            <li>Portfolio Browser</li>
+                            <li>1 Artist Profile</li>
+                            <li>Basic Analytics</li>
+                            <li>Email Support</li>
+                            <li>Discord Integration</li>
+                        </ul>
+                        <button class="btn btn-secondary" style="width: 100%;">Get Started</button>
+                    </div>
+                    
+                    <div class="pricing-card featured">
+                        <div class="pricing-name">Professional</div>
+                        <div class="pricing-price">$299<span>/mo</span></div>
+                        <div class="pricing-description">For growing studios</div>
+                        <ul class="pricing-features">
+                            <li>All AI Skills (Design Gen, etc.)</li>
+                            <li>Unlimited Artist Profiles</li>
+                            <li>Advanced Analytics</li>
+                            <li>Priority Support</li>
+                            <li>Custom Training</li>
+                            <li>API Access</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width: 100%;">Get Started</button>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <div class="pricing-name">Enterprise</div>
+                        <div class="pricing-price">Custom</div>
+                        <div class="pricing-description">Multi-location studios</div>
+                        <ul class="pricing-features">
+                            <li>Everything in Pro</li>
+                            <li>Multi-location Support</li>
+                            <li>Dedicated Account Manager</li>
+                            <li>Custom Development</li>
+                            <li>SLA Guarantee</li>
+                            <li>On-site Training</li>
+                        </ul>
+                        <button class="btn btn-secondary" style="width: 100%;">Contact Us</button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px; color: var(--text-muted);">
+                    <p>30-day money-back guarantee • No setup fees • No contracts</p>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn secondary" onclick="prevPanel(5)">
+                        ← Back
+                    </button>
+                    <button class="nav-btn primary" onclick="nextPanel(5)">
+                        Get Started →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Panel 6: CTA -->
+            <div class="panel" id="panel-6">
+                <div class="section-header" style="text-align: left;">
+                    <div class="section-eyebrow">Let's Talk</div>
+                    <h2 class="section-title">Ready to Transform Your Studio?</h2>
+                    <p class="section-description" style="margin-left: 0;">
+                        Book a free 20-minute demo personalized for Tattoo Timmy's. No pressure, no obligation.
+                    </p>
+                </div>
+                
+                <div class="cta-section">
+                    <h3 class="cta-title">Let's Get Started</h3>
+                    <p class="cta-description">
+                        In 20 minutes, we'll customize the demo for your studio and show you exactly how this would work for your specific setup.
+                    </p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-success" style="font-size: 18px; padding: 18px 40px;">
+                            📅 Book Your Free Demo
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="margin-bottom: 20px;">Or reach out directly:</p>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <div style="background: var(--discord-input); padding: 15px 25px; border-radius: 8px;">
+                            📧 demo@timmys-ai.com
+                        </div>
+                        <div style="background: var(--discord-input); padding: 15px 25px; border-radius: 8px;">
+                            📱 (555) 123-4567
+                        </div>
+                        <div style="background: var(--discord-input); padding: 15px 25px; border-radius: 8px;">
+                            🌐 timmys-ai.com/demo
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 60px; padding: 30px; background: var(--discord-input); border-radius: 16px;">
+                    <h4 style="margin-bottom: 20px;">🎁 Limited Time Offer</h4>
+                    <p style="margin-bottom: 15px;">Book your demo this week and receive:</p>
+                    <ul style="list-style: none;">
+                        <li style="padding: 8px 0;">✓ Free setup and configuration (value $500)</li>
+                        <li style="padding: 8px 0;">✓ 1 month free on any plan</li>
+                        <li style="padding: 8px 0;">✓ Priority access to new features</li>
+                    </ul>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="nav-btn secondary" onclick="prevPanel(6)">
+                        ← Back
+                    </button>
+                    <button class="nav-btn primary" onclick="showPanel(0)">
+                        Start Over
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pitch-footer">
+        Tattoo Timmy's AI Assistant Demo • Powered by OpenClaw + Discord • Built with Claude
+    </div>
+    
+    <script>
+        // State
+        let currentPanel = 0;
+        const totalPanels = 7;
+        
+        // Panel elements
+        const panels = document.querySelectorAll('.panel');
+        const steps = document.querySelectorAll('.journey-step');
+        
+        // Start Pitch
+        function startPitch() {
+            document.getElementById('coverScreen').classList.add('hidden');
+            document.getElementById('mainContainer').classList.add('visible');
+            showPanel(0);
+        }
+        
+        // Show specific panel
+        function showPanel(index) {
+            currentPanel = index;
+            
+            // Update panels
+            panels.forEach((panel, i) => {
+                panel.classList.remove('active');
+                if (i === index) {
+                    panel.classList.add('active');
+                }
+            });
+            
+            // Update sidebar
+            steps.forEach((step, i) => {
+                step.classList.remove('active', 'completed');
+                if (i < index) {
+                    step.classList.add('completed');
+                } else if (i === index) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Update progress bar
+            const progress = ((index + 1) / totalPanels) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Next panel
+        function nextPanel(current) {
+            if (current < totalPanels - 1) {
+                showPanel(current + 1);
+            }
+        }
+        
+        // Previous panel
+        function prevPanel(current) {
+            if (current > 0) {
+                showPanel(current - 1);
+            }
+        }
+        
+        // Scroll to panel (for cover screen links)
+        function scrollToPanel(panelId) {
+            startPitch();
+            // Find panel index
+            const panelIndex = Array.from(panels).findIndex(p => p.id === panelId);
+            if (panelIndex !== -1) {
+                showPanel(panelIndex);
+            }
+        }
+        
+        // ROI Calculator
+        function calculateROI() {
+            const artists = parseInt(document.getElementById('artistCount').value);
+            const avgBooking = parseInt(document.getElementById('avgBooking').value);
+            const monthlyBookings = parseInt(document.getElementById('monthlyBookings').value);
+            
+            // Calculate ranges based on studio size
+            let bookingIncrease, timeSaved, baseRevenue;
+            
+            switch(artists) {
+                case 1:
+                    bookingIncrease = '25-35%';
+                    timeSaved = '10+ hours/week';
+                    baseRevenue = 0.30; // 30% increase
+                    break;
+                case 2:
+                    bookingIncrease = '30-40%';
+                    timeSaved = '15+ hours/week';
+                    baseRevenue = 0.35; // 35% increase
+                    break;
+                case 4:
+                    bookingIncrease = '35-45%';
+                    timeSaved = '25+ hours/week';
+                    baseRevenue = 0.40; // 40% increase
+                    break;
+            }
+            
+            const additionalLow = Math.round(monthlyBookings * baseRevenue * avgBooking);
+            const additionalHigh = Math.round(monthlyBookings * (baseRevenue + 0.10) * avgBooking);
+            
+            document.getElementById('bookingIncrease').textContent = bookingIncrease;
+            document.getElementById('additionalBookings').textContent = 
+                Math.round(monthlyBookings * baseRevenue) + '-' + 
+                Math.round(monthlyBookings * (baseRevenue + 0.10));
+            document.getElementById('additionalRevenue').textContent = 
+                '$' + additionalLow.toLocaleString() + ' - $' + additionalHigh.toLocaleString();
+            document.getElementById('timeSaved').textContent = timeSaved;
+            document.getElementById('annualImpact').textContent = 
+                '$' + (additionalLow * 12).toLocaleString() + ' - $' + (additionalHigh * 12).toLocaleString();
+        }
+        
+        // Initialize
+        calculateROI();
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPanel(currentPanel);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevPanel(currentPanel);
+            }
+        });
+    </script>
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
